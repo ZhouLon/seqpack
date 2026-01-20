@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
-"""
-读取FASTA文件并输出内容到终端
-"""
-
 import sys
 import time
+from Bio import SeqIO
 
 def read_fasta(filepath):
     """读取FASTA文件并返回内容"""
@@ -16,7 +12,6 @@ def read_fasta(filepath):
             line = line.strip()
             if not line:  # 跳过空行
                 continue
-                
             if line.startswith('>'):  # 序列头部
                 if current_header:  # 保存之前的序列
                     sequences.append((current_header, ''.join(current_sequence)))
@@ -32,8 +27,13 @@ def read_fasta(filepath):
     
     return sequences
     
-
-
+def read_fasta_bio(filepath):
+    fasta_sequences = SeqIO.parse(filepath, "fasta")
+    sequences = []
+    for seq_record in fasta_sequences:
+        name, sequence = seq_record.id, str(seq_record.seq)
+        sequences.append(sequence)
+    return sequences
 
 def main():
     # 检查命令行参数
