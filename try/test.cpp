@@ -5,13 +5,13 @@
 #include <vector>
 
 struct FastaStats {
-    int sequenceCount;
+    long sequenceCount;
     long long totalLength;
     double processingTimeMs;
 };
 
 FastaStats analyzeFasta(const std::string& filepath, bool verbose = false) {
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();  # 计算时间
     
     FastaStats stats = {0, 0, 0.0};
     std::ifstream file(filepath);
@@ -66,11 +66,9 @@ int main(int argc, char* argv[]) {
         std::cout << "序列数量: " << stats.sequenceCount << std::endl;
         std::cout << "总碱基数: " << stats.totalLength << std::endl;
         std::cout << "处理时间: " << stats.processingTimeMs << " 毫秒" << std::endl;
-        
-        if (stats.sequenceCount > 0) {
-            std::cout << "平均序列长度: " << static_cast<double>(stats.totalLength) / stats.sequenceCount << std::endl;
-            std::cout << "处理速度: " << stats.totalLength / stats.processingTimeMs << " 碱基/毫秒" << std::endl;
-        }
+        std::cout << "平均序列长度: " << static_cast<double>(stats.totalLength) / stats.sequenceCount << std::endl;
+        std::cout << "处理速度: " << stats.totalLength / stats.processingTimeMs << " 碱基/毫秒" << std::endl;
+
     
     return 0;
 }
