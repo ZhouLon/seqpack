@@ -3,7 +3,6 @@ import time
 from Bio import SeqIO
 
 class ReadMethod:
-
     def read_from_python(filepath):
         """用python基础代码读取FASTA文件并返回内容"""
         sequences = []

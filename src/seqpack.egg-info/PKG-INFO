@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: seqpack
+Version: 0.0.1
+Summary: 一个快速存储加载FASTA文件的工具包
+Author: ZhouLong
+License-File: LICENSE
+Requires-Dist: biopython
+Dynamic: author
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary

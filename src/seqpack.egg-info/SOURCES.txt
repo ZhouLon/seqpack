@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/seq_pack/__init__.py
+src/seq_pack/read_file.py
+src/seqpack.egg-info/PKG-INFO
+src/seqpack.egg-info/SOURCES.txt
+src/seqpack.egg-info/dependency_links.txt
+src/seqpack.egg-info/requires.txt
+src/seqpack.egg-info/top_level.txt
+test/test.py
