@@ -9,10 +9,10 @@ seqpack是一款开源的，快速读取文件并减少存储空间的dna、氨�
 ### 1. 文件格式结构定义
 ```yaml
 Header部分:
-- 魔数（标识文件类型，如 "SPF1"）
-- 版本号
-- 序列类型标识（DNA/RNA/Protein/Binary）
-- 总序列数
+- 魔数:SPF1        -4字节   
+- 版本号:xxx       -1字节  (0-256)
+- 序列类型标识:x  -1字节（DNA:0/RNA:1/Protein:2）   
+- 总序列数:x     -
 - 编码方式（压缩算法标识）
 - 索引表偏移量
 
@@ -38,30 +38,8 @@ Index部分:
 
 ## 二、API设计示例
 
-```python
-# 基本API示例
-class SeqPack:
-    @staticmethod
-    def write(filename, sequences, ids=None, metadata=None)
-    @staticmethod
-    def read(filename, index_only=False)
-    @staticmethod
-    def append(filename, sequences, ids=None)
-    @staticmethod
-    def query(filename, seq_id)  # 按ID查询
-    @staticmethod
-    def query_by_index(filename, index)  # 按索引查询
-    @staticmethod
-    def update(filename, index, new_sequence)
-    @staticmethod
-    def delete(filename, index)  # 标记删除或物理删除
-    
-# 高级功能
-class SeqPackViewer:
-    def __init__(self, filename, mmap=True)
-    def get_chunk(self, start, end)  # 分块读取
-    def parallel_processing(self, func)  # 并行处理支持
-```
+第一个是 c-api，ctypes
+第二个是pybind
 
 ## 三、测试方案的细化
 
@@ -74,7 +52,14 @@ class SeqPackViewer:
 - 读取模式：顺序读取、随机访问、批量查询
 ```
 
-### 2. 对比格式列表
+### 2. 安全测试
+```
+特殊字符序列（包含非ASCII字符）
+超大序列长度(10^12)
+文件损坏检测
+```
+
+### 3. 对比格式列表
 ```
 必比：
 - FASTA（基准）
@@ -89,7 +74,7 @@ class SeqPackViewer:
 - LMDB（内存映射数据库）
 ```
 
-### 3. 性能指标具体化
+### 4. 性能指标具体化
 ```python
 测试指标 = {
     "写入时间": "从数据到磁盘的总时间",
