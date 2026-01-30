@@ -1,0 +1,24 @@
+import time
+import ctypes as ct
+
+def main():
+    num=int(1e9)
+    result=0
+    start_time=time.time()
+    result=ct.CDLL("./c_dll.so")
+    result.my_add(num)
+    end_time=time.time()
+    print(end_time-start_time)
+
+if __name__ == "__main__":
+    main()
+
+
+void my_add(int num){
+long int result=0;
+for (long int i=1;i<=num;i++){
+    result+=1;
+}
+}
+
+gcc c_dll.c -shared -o c_dll.so
